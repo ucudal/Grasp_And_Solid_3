@@ -26,9 +26,12 @@ namespace Full_GRASP_And_SOLID
             recipe.AddStep(new Step(GetProduct("Café"), 100, GetEquipment("Cafetera"), 120));
             recipe.AddStep(new Step(GetProduct("Leche"), 200, GetEquipment("Hervidor"), 60));
 
-            AllInOnePrinter printer = new AllInOnePrinter();
-            printer.PrintRecipe(recipe, Destination.Console);
-            printer.PrintRecipe(recipe, Destination.File);
+            //Aquí se emplea el principio LSP debido a que además de usarse polimorfismo, es indiferente utilizar cualquiera de 
+            //las clases para imprimir la receta, ya que el resultado será el mismo.
+            IPrinter consolePrinter = new ConsolePrinter();
+            IPrinter filePrinter = new FilePrinter();
+            consolePrinter.PrintRecipe(recipe);
+            filePrinter.PrintRecipe(recipe);
         }
 
         private static void PopulateCatalogs()
